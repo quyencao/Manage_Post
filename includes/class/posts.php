@@ -72,7 +72,7 @@
             $stmt->execute();
         }
 
-        public static function update(PDO $conn, Post $post) {
+        public static function update(PDO $conn, Post $post, $id) {
             $stmt = $conn->prepare('UPDATE posts SET title = :title, description = :description, 
               image = :image, status = :status, update_at = :update_at WHERE id = :id');
             $stmt->bindParam(':title', $post->title);
@@ -80,7 +80,7 @@
             $stmt->bindParam(':image', $post->image);
             $stmt->bindParam(':status', $post->status);
             $stmt->bindParam(':update_at', date("Y-m-d H:i:s"));
-            $stmt->bindParam(':id', $post->id);
+            $stmt->bindParam(':id', $id);
 
             $stmt->execute();
         }

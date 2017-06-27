@@ -2,35 +2,12 @@
 <?php include_once ("../includes/layout/header.php"); ?>
 
 <?php
-    if(isset($_GET["update_id"])) {
-        $post = Posts::get_post_by_id($connection, $_GET["update_id"]);
-    } else {
-        $post = Post::create_empty_post();
-    }
-?>
-
-<?php
-    if(isset($_POST["submit"])) {
-        $title = $_POST["title"];
-        $desc = $_POST["description"];
-        $status = $_POST["status"];
-        $image = $_FILES["image"]["name"];
-
-        if($title == "" || $desc == "" || !in_array($status, array("0", "1"))) {
-            $error = "Field must not be empty";
-        } else {
-            if(isset($_GET["update_id"])) {
-                if($_FILES["image"]["error"] > 0) {
-                    $image = $post->image;
-                } else {
-                    move_uploaded_file($_FILES["image"]["tmp_name"], "../public/img/" . $_FILES["image"]["name"]);
-                }
-                Post::set_new_properties($post, $title, $desc, $image,(int)$status);
-                Posts::update($connection, $post);
-            }
-            header("Location: index.php");
-        }
-    }
+if(isset($_GET["update_id"])) {
+    $post = Posts::get_post_by_id($connection, $_GET["update_id"]);
+    $_FILES["image"]["name"] = $post->image;
+} else {
+    $post = Post::create_empty_post();
+}
 ?>
 
 <h1 class="col-sm-offset-2">Edit
@@ -38,7 +15,8 @@
     <a href="" class="btn btn-default">Show</a>
 </h1>
 
-<form class="form-horizontal" method="post" action="edit.php?update_id=<?php echo isset($_GET["update_id"]) ? $_GET["update_id"] : -1 ?>" enctype="multipart/form-data">
+<form id="edit_post" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+    <input name="id" type="text" hidden value="<?php echo $post->id; ?>">
     <div class="form-group">
         <label class="control-label col-sm-2" for="email">Title</label>
         <div class="col-sm-4">
@@ -56,13 +34,14 @@
         <label class="control-label col-sm-2" for="image">Image</label>
         <div class="col-sm-4">
             <input name="image" type="file" class="form-control" id="image" placeholder="Image">
+            <input type="text" hidden name="old_image" value="<?php echo $post->image; ?>">
         </div>
         <?php if(!empty($post->image)): ?>
             <div>
                 <img src='../public/img/<?php echo $post->image ?>' width='200px' />
             </div>
         <?php endif; ?>
-<!--        <img src="" alt="">-->
+        <!--        <img src="" alt="">-->
     </div>
     <div class="form-group">
         <label class="control-label col-sm-2" for="image">Status</label>
@@ -79,10 +58,33 @@
         </div>
     </div>
 </form>
-<?php if(isset($error)): ?>
-    <div class="col-sm-8 col-sm-offset-2 alert alert-danger">
-        <?php echo $error; ?>
-    </div>
-<?php endif; ?>
+
+<div id="errors" class="col-sm-8 col-sm-offset-2">
+
+</div>
+
+<script>
+    $("input[type=submit]").on("click", function (event) {
+        event.preventDefault();
+
+        var form_data = new FormData(document.getElementById("edit_post"));
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "process_edit.php", true);
+        xhr.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200) {
+//                console.log(this.responseText);
+                try {
+                    var json = JSON.parse(this.responseText);
+                    $("#errors").addClass("alert alert-danger").html(json.errors);
+                } catch (e) {
+                    window.location.href = "index.php";
+                }
+            }
+        }
+        xhr.send(form_data);
+    });
+</script>
+
 <?php include_once ("../includes/layout/footer.php"); ?>
 
