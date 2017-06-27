@@ -1,0 +1,12 @@
+.container {
+    margin-top: 50px;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 0;
+}
+
+.pagination li:hover {
+    cursor: pointer;
+}

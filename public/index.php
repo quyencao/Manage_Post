@@ -1,7 +1,7 @@
 <?php require_once ("../includes/config.php"); ?>
 <?php include_once ("../includes/layout/header.php"); ?>
 
-    <table class="table table-bordered table-striped">
+    <table id="posts" class="table table-bordered table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -24,21 +24,82 @@
         </tbody>
     </table>
 
-    <ul class="pagination">
-        <?php
-            $numberOfPosts = count($posts);
-            echo $numberOfPosts;
-            $postPerPage = 5;
-            $minPages = floor($numberOfPosts / $postPerPage);
-            $pages = $numberOfPosts % $postPerPage == 0 ?  $minPages : $minPages + 1;
+    <div class="row">
+        <div class="col-md-2">
+            Page:
+            <select name="" id="pages">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="all">All</option>
+            </select>
+        </div>
+        <div class="col-md-8 text-center">
+            <ul class="pagination">
 
-            for($i = 1; $i <= $pages; $i++):
-        ?>
-            <li><a href="#"><?php echo $i; ?></a></li>
-        <?php
-            endfor;
-        ?>
-    </ul>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var numberOfPosts = $("#posts tr").length;
+            var postPerPage = 5;
+            var minPages = Math.floor(numberOfPosts / postPerPage);
+            var pages = numberOfPosts % postPerPage == 0 ? minPages : minPages + 1;
+
+            $(".pagination").on('click', function (e) {
+                var page = parseInt(e.target.textContent);
+
+                $(".pagination li").removeClass("active");
+                $(e.target).parent().addClass("active");
+
+                $("#posts tbody tr").each(function (index) {
+                    if(index >= (page - 1) * postPerPage && index < page * postPerPage) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            $("#pages").change(function (e) {
+                if(e.target.value == "all") {
+                    postPerPage = numberOfPosts;
+                } else {
+                    postPerPage = parseInt(e.target.value);
+                }
+
+                minPages = Math.floor(numberOfPosts / postPerPage);
+                pages = numberOfPosts % postPerPage == 0 ? minPages : minPages + 1;
+
+                generatePagination();
+                init();
+            });
+
+            function init() {
+                $(".pagination li:first-child").addClass("active");
+
+                $("#posts tbody tr").each(function (index) {
+                    if(index >= 0 && index < postPerPage) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            }
+
+            function generatePagination() {
+                $(".pagination li").remove();
+                for(var i = 1; i <= pages; i++) {
+                    $(".pagination").append("<li><a>" + i + "</a></li>");
+                }
+            }
+
+            generatePagination();
+            init();
+        })();
+    </script>
 
 
 <?php include_once ("../includes/layout/footer.php"); ?>
