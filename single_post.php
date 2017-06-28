@@ -1,5 +1,5 @@
-<?php require_once ("../includes/config.php"); ?>
-<?php include_once ("../includes/layout/header.php"); ?>
+<?php require_once("config.php"); ?>
+<?php include_once(ABSPATH . "includes/layout/header.php"); ?>
     <?php
         if(isset($_GET["id"])) {
             $post = Posts::get_post_by_id($connection, $_GET["id"]);
@@ -8,7 +8,7 @@
     <?php if(isset($post)): ?>
         <div class="row">
             <h1><?php echo $post->title; ?>
-                <a class="btn btn-default pull-right" href="index.php">Back</a>
+                <a class="btn btn-default pull-right" href="list_posts.php">Back</a>
             </h1>
         </div>
         <hr>
@@ -21,4 +21,4 @@
             </div>
         </div>
     <?php endif; ?>
-<?php include_once ("../includes/layout/footer.php"); ?>
+<?php include_once(ABSPATH . "includes/layout/footer.php"); ?>

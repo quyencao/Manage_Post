@@ -1,5 +1,6 @@
-<?php require_once ("../includes/config.php"); ?>
-<?php include_once ("../includes/layout/header.php"); ?>
+<?php require_once ("admin_header.php"); ?>
+<?php require_once(ABSPATH . "config.php"); ?>
+<?php include_once (ABSPATH . "includes/layout/header.php"); ?>
 
     <?php
         if(isset($_GET["delete_id"])) {
@@ -32,11 +33,11 @@
             ?>
             <tr>
                 <td><?php echo $post->id; ?></td>
-                <td><img class="img-responsive" src="../public/img/<?php echo htmlspecialchars($post->image); ?>" width="200px" alt=""></td>
+                <td><img class="img-responsive" src="<?php echo '../img/'. htmlspecialchars($post->image); ?>" width="200px" alt=""></td>
                 <td><?php echo $post->title; ?></td>
                 <td><?php echo $post->status ? "Enabled" : "Disabled"; ?></td>
                 <td>
-                    <a href="../public/single_post.php?id=<?php echo htmlspecialchars($post->id); ?>">Show</a> |
+                    <a href="../single_post.php?id=<?php echo htmlspecialchars($post->id); ?>">Show</a> |
                     <a href="edit.php?update_id=<?php echo htmlspecialchars($post->id); ?>">Edit</a> |
                     <a href="index.php?delete_id=<?php echo htmlspecialchars($post->id); ?>">Delete</a>
                 </td>

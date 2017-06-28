@@ -1,5 +1,6 @@
-<?php require_once ("../includes/config.php"); ?>
-<?php include_once ("../includes/layout/header.php"); ?>
+<?php require_once ("admin_header.php"); ?>
+<?php require_once(ABSPATH. "config.php"); ?>
+<?php include_once (ABSPATH . "includes/layout/header.php"); ?>
 
 <?php
 if(isset($_GET["update_id"])) {
@@ -38,7 +39,7 @@ if(isset($_GET["update_id"])) {
         </div>
         <?php if(!empty($post->image)): ?>
             <div>
-                <img src='../public/img/<?php echo $post->image ?>' width='200px' />
+                <img src="<?php echo '../img/' . $post->image ?>" width='200px' />
             </div>
         <?php endif; ?>
         <!--        <img src="" alt="">-->
@@ -73,7 +74,6 @@ if(isset($_GET["update_id"])) {
         xhr.open("POST", "process_edit.php", true);
         xhr.onreadystatechange = function () {
             if(this.readyState == 4 && this.status == 200) {
-//                console.log(this.responseText);
                 try {
                     var json = JSON.parse(this.responseText);
                     $("#errors").addClass("alert alert-danger").html(json.errors);

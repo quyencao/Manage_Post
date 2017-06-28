@@ -1,5 +1,6 @@
-<?php require_once ("../includes/config.php"); ?>
-<?php include_once ("../includes/layout/header.php"); ?>
+<?php require_once ("admin_header.php"); ?>
+<?php require_once(ABSPATH . "config.php"); ?>
+<?php include_once (ABSPATH . "includes/layout/header.php"); ?>
 
 
 <h1 class="col-sm-offset-2">Edit

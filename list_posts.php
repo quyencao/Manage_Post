@@ -1,5 +1,5 @@
-<?php require_once ("../includes/config.php"); ?>
-<?php include_once ("../includes/layout/header.php"); ?>
+<?php require_once("config.php"); ?>
+<?php include_once(ABSPATH . "includes/layout/header.php"); ?>
 
     <table id="posts" class="table table-bordered table-striped">
         <thead>
@@ -102,5 +102,5 @@
     </script>
 
 
-<?php include_once ("../includes/layout/footer.php"); ?>
+<?php include_once(ABSPATH . "includes/layout/footer.php"); ?>
 

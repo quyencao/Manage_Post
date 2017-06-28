@@ -1,5 +1,6 @@
 <?php
-require_once ("../includes/config.php");
+ require_once ("admin_header.php");
+ require_once(ABSPATH . "config.php");
 
 $errors = "";
 
@@ -27,7 +28,7 @@ if(!empty($errors)) {
     echo json_encode($result);
 } else {
     if(!empty($_FILES["image"]["name"])) {
-        move_uploaded_file($_FILES["image"]["tmp_name"], "../public/img/" . $_FILES["image"]["name"]);
+        move_uploaded_file($_FILES["image"]["tmp_name"], ABSPATH . 'img/' . $_FILES["image"]["name"]);
     } else {
         $image = $_POST["old_image"];
     }

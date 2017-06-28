@@ -56,7 +56,7 @@
                 $stmt->bindParam(':id', $id);
                 $stmt->execute();
             }
-            header("Refresh:0; url=index.php");
+            header("Refresh:0; url=list_posts.php");
         }
 
         public static function insert(PDO $conn,Post $post) {

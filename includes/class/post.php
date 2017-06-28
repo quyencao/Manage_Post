@@ -54,4 +54,5 @@
             $post->image = $image;
             $post->status = $status;
         }
+
     }

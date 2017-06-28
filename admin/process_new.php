@@ -1,5 +1,6 @@
 <?php
-require_once ("../includes/config.php");
+require_once ("admin_header.php");
+require_once(ABSPATH . "config.php");
 
 $errors = "";
 
@@ -28,7 +29,7 @@ if(!empty($errors)) {
     $result = array("errors" => $errors, "status" => 500);
     echo json_encode($result);
 } else {
-    move_uploaded_file($_FILES["image"]["tmp_name"], "../public/img/" . $_FILES["image"]["name"]);
+    move_uploaded_file($_FILES["image"]["tmp_name"], ABSPATH . 'img/' . $_FILES["image"]["name"]);
     $post = new Post($title, $desc, $image,(int)$status);
     Posts::insert($connection, $post);
     echo json_encode(array("status" => 200));
