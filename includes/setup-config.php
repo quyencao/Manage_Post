@@ -3,4 +3,6 @@
         define('ABSPATH', dirname(dirname(__FILE__)) . '/');
     }
 
-//    copy(ABSPATH . 'config-sample.php', ABSPATH. 'config.php');
+//    if(file_exists(ABSPATH . 'config-sample.php')) {
+//        copy(ABSPATH . 'config-sample.php', ABSPATH . 'config.php');
+//    }

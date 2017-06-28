@@ -15,7 +15,10 @@
 
     define("DB_HOST", "host");
 
-    $database = new Database(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+//    $database = Database::connectToDatabase(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $database = new Database(DB_HOST, DB_USER, DB_PASSWORD);
+
+    $database->createDatabase(DB_NAME);
 
     $connection = $database->getConnection();
 

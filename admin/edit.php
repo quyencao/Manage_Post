@@ -11,54 +11,57 @@ if(isset($_GET["update_id"])) {
 }
 ?>
 
-<h1 class="col-sm-offset-2">Edit
-    <a href="index.php" class="btn btn-primary">Back</a>
-    <a href="" class="btn btn-default">Show</a>
-</h1>
-
-<form id="edit_post" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
-    <input name="id" type="text" hidden value="<?php echo $post->id; ?>">
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="email">Title</label>
-        <div class="col-sm-4">
-            <input name="title" type="text" class="form-control" id="title" placeholder="title" value="<?php echo $post->title; ?>">
+<div class="row">
+    <h1 class="col-sm-offset-2 col-sm-8">Edit
+        <a href="index.php" class="btn btn-default pull-right">Back</a>
+        <a href="" class="btn btn-primary pull-right">Show</a>
+    </h1>
+</div>
+<div class="row">
+    <form id="edit_post" class="form-horizontal" method="post" action="" enctype="multipart/form-data">
+        <input name="id" type="text" hidden value="<?php echo $post->id; ?>">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Title</label>
+            <div class="col-sm-4">
+                <input name="title" type="text" class="form-control" id="title" placeholder="title" value="<?php echo $post->title; ?>">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd">Description:</label>
-        <div class="col-sm-10">
-            <textarea name="description" id="description" cols="90" rows="10"><?php echo $post->description; ?>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Description:</label>
+            <div class="col-sm-10">
+            <textarea name="description" id="description" cols="105" rows="10"><?php echo $post->description; ?>
             </textarea>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="image">Image</label>
-        <div class="col-sm-4">
-            <input name="image" type="file" class="form-control" id="image" placeholder="Image">
-            <input type="text" hidden name="old_image" value="<?php echo $post->image; ?>">
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="image">Image</label>
+            <div class="col-sm-4">
+                <input name="image" type="file" class="form-control" id="image" placeholder="Image">
+                <input type="text" hidden name="old_image" value="<?php echo $post->image; ?>">
+            </div>
+            <!--        <img src="" alt="">-->
         </div>
         <?php if(!empty($post->image)): ?>
-            <div>
+            <div class="col-sm-offset-2">
                 <img src="<?php echo '../img/' . $post->image ?>" width='200px' />
             </div>
         <?php endif; ?>
-        <!--        <img src="" alt="">-->
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="image">Status</label>
-        <div class="col-sm-4">
-            <select name="status" id="status" class="form-control">
-                <option value="0" <?php $post->status == 0 ? 'selected' : '' ?>>Disable</option>
-                <option value="1" <?php $post->status == 1 ? 'selected' : '' ?>>Enable</option>
-            </select>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="image">Status</label>
+            <div class="col-sm-4">
+                <select name="status" id="status" class="form-control">
+                    <option value="0" <?php $post->status == 0 ? 'selected' : '' ?>>Disable</option>
+                    <option value="1" <?php $post->status == 1 ? 'selected' : '' ?>>Enable</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-4">
-            <input name="submit" type="submit" value="Submit" class="btn btn-primary">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-4">
+                <input name="submit" type="submit" value="Submit" class="btn btn-primary">
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <div id="errors" class="col-sm-8 col-sm-offset-2">
 
